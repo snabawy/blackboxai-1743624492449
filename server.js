@@ -51,10 +51,10 @@ app.post('/api/signup', async (req, res) => {
     }
     console.log('User verification successful:', createdUser);
 
-    res.status(201).json({ 
+    res.status(201).json(JSON.stringify({ 
       message: 'User created successfully',
       userId
-    });
+    }));
   } catch (error) {
     if (error.code === 'ER_DUP_ENTRY') {
       return res.status(400).json({ error: 'Email already exists' });
@@ -83,7 +83,7 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    res.json({ 
+    res.json(JSON.stringify({ 
       message: 'Login successful',
       user: {
         id: user.id,
@@ -92,7 +92,7 @@ app.post('/api/login', async (req, res) => {
         lastName: user.last_name,
         role: user.role
       }
-    });
+    }));
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
